@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  next-app:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
