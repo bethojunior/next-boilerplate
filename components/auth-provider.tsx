@@ -34,8 +34,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   async function login(email: string, password: string): Promise<boolean> {
     try {
       const response = await apiService.login(email, password)
-      if (response.token) {
-        document.cookie = `auth_token=${response.token}; path=/; max-age=2592000` // 30 dias
+      if (response.accessToken) {
+        localStorage.setItem('token', response.accessToken)
+        document.cookie = `auth_token=${response.accessToken}; path=/; max-age=2592000`
         setUser(response.user)
         router.push("/dashboard")
         return true
