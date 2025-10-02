@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation"
+import AppFlow from "@/components/app-flow"
 
 export default function Home() {
-  redirect("/login")
+  return <AppFlow />
 }
