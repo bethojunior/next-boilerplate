@@ -1,7 +1,6 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { apiService } from "@/lib/api"
 import { useToast } from "@/components/ui/use-toast"
 
 export default function DashboardPage() {

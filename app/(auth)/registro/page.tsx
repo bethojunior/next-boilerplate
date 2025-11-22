@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import { apiService } from "@/lib/api"
+import { authService } from "@/services/auth.service"
 
 export default function RegistroPage() {
   const router = useRouter()
@@ -46,7 +46,7 @@ export default function RegistroPage() {
     setIsLoading(true)
 
     try {
-      await apiService.createUser({
+      await authService.createUser({
         name: formData.name,
         email: formData.email,
         password: formData.password,
