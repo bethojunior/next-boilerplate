@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { useRouter } from "next/navigation"
-import { LogOut, Settings, User } from "lucide-react"
+import { LogOut, Settings, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,16 +12,16 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { useToast } from "@/components/ui/use-toast"
-import { useAuth } from "@/components/auth-provider"
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { useToast } from '@/components/ui/use-toast'
+import { useAuth } from '@/providers/auth-provider'
 
 function getInitials(name: string) {
-  if (!name) return "";
-  const parts = name.trim().split(" ");
-  if (parts.length === 1) return parts[0][0].toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  if (!name) return ''
+  const parts = name.trim().split(' ')
+  if (parts.length === 1) return parts[0][0].toUpperCase()
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
 }
 
 export function UserNav() {
@@ -29,15 +29,15 @@ export function UserNav() {
   const { toast } = useToast()
   const { user, loading } = useAuth()
 
-  if (loading) return null;
+  if (loading) return null
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn")
+    localStorage.removeItem('isLoggedIn')
     toast({
-      title: "Logout realizado",
-      description: "Você foi desconectado com sucesso",
+      title: 'Logout realizado',
+      description: 'Você foi desconectado com sucesso'
     })
-    router.push("/login")
+    router.push('/login')
   }
 
   return (
@@ -45,7 +45,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarFallback>{getInitials(user?.name || "")}</AvatarFallback>
+            <AvatarFallback>{getInitials(user?.name || '')}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -53,7 +53,9 @@ export function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user?.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {user?.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

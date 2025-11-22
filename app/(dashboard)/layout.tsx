@@ -1,15 +1,19 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Sidebar } from "@/components/sidebar"
-import { UserNav } from "@/components/user-nav"
-import { useToast } from "@/components/ui/use-toast"
-import { useAuth } from "@/components/auth-provider"
+import { Sidebar } from '@/components/sidebar'
+import { useToast } from '@/components/ui/use-toast'
+import { UserNav } from '@/components/user-nav'
+import { useAuth } from '@/providers/auth-provider'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   const router = useRouter()
   const { toast } = useToast()
   const { user, loading } = useAuth()
@@ -17,11 +21,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   useEffect(() => {
     if (!loading && !user) {
       toast({
-        title: "Acesso negado",
-        description: "Você precisa fazer login para acessar esta página",
-        variant: "destructive",
+        title: 'Acesso negado',
+        description: 'Você precisa fazer login para acessar esta página',
+        variant: 'destructive'
       })
-      router.push("/login")
+      router.push('/login')
     }
   }, [user, loading, router, toast])
 

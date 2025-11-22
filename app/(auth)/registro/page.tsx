@@ -73,7 +73,7 @@ export default function RegistroPage() {
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-2xl">Criar Conta</CardTitle>
-        <CardDescription>Registre-se para acessar o sistema Pulse 704</CardDescription>
+        <CardDescription>Registre-se</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">

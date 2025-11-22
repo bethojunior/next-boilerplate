@@ -1,21 +1,21 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
-import { AuthProvider } from "@/components/auth-provider"
+import { Toaster } from '@/components/ui/toaster'
+import { AuthProvider } from '@/providers/auth-provider'
+import { ThemeProvider } from '@/providers/theme-provider'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import type React from 'react'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Pulse 704 - Sistema de Logs",
-  description: "Sistema de monitoramento e gerenciamento de logs",
-  generator: 'Pulse 704',
-};
+  title: 'Pulse',
+  description: 'Pulse',
+  generator: 'Pulse'
+}
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode
 }>) {

@@ -1,18 +1,25 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Eye, EyeOff, Loader2 } from "lucide-react"
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useToast } from "@/components/ui/use-toast"
-import { useAuth } from "@/components/auth-provider"
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useToast } from '@/components/ui/use-toast'
+import { useAuth } from '@/providers/auth-provider'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -21,8 +28,8 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,25 +43,27 @@ export default function LoginPage() {
 
     try {
       const success = await login(formData.email, formData.password)
-      
+
       if (success) {
         toast({
-          title: "Login realizado com sucesso",
-          description: "Bem-vindo ao sistema Pulse 704",
+          title: 'Login realizado com sucesso',
+          description: 'Bem-vindo'
         })
-        router.push("/dashboard")
+        router.push('/dashboard')
       } else {
         toast({
-          title: "Erro de autenticação",
-          description: "Email ou senha incorretos",
-          variant: "destructive",
+          title: 'Erro de autenticação',
+          description: 'Email ou senha incorretos',
+          variant: 'destructive'
         })
       }
     } catch (error: any) {
       toast({
-        title: "Erro ao fazer login",
-        description: error.response?.data?.message || "Ocorreu um erro ao tentar fazer login. Tente novamente.",
-        variant: "destructive",
+        title: 'Erro ao fazer login',
+        description:
+          error.response?.data?.message ||
+          'Ocorreu um erro ao tentar fazer login. Tente novamente.',
+        variant: 'destructive'
       })
     } finally {
       setIsLoading(false)
@@ -65,7 +74,9 @@ export default function LoginPage() {
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>Entre com suas credenciais para acessar o sistema</CardDescription>
+        <CardDescription>
+          Entre com suas credenciais para acessar o sistema
+        </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
@@ -96,7 +107,7 @@ export default function LoginPage() {
               <Input
                 id="password"
                 name="password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
@@ -111,8 +122,14 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={isLoading}
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                <span className="sr-only">{showPassword ? "Esconder senha" : "Mostrar senha"}</span>
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+                <span className="sr-only">
+                  {showPassword ? 'Esconder senha' : 'Mostrar senha'}
+                </span>
               </Button>
             </div>
           </div>
@@ -128,11 +145,11 @@ export default function LoginPage() {
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Entrando...
               </>
             ) : (
-              "Entrar"
+              'Entrar'
             )}
           </Button>
           <p className="text-center text-sm text-muted-foreground">
-            Não tem uma conta?{" "}
+            Não tem uma conta?{' '}
             <Link
               href="/registro"
               className="font-medium text-primary underline underline-offset-4 hover:text-primary/90"
