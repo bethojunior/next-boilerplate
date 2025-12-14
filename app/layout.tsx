@@ -1,5 +1,5 @@
 import { Toaster } from '@/components/ui/toaster'
-import { AuthProvider } from '@/providers/auth-provider'
+import { AuthProvider } from '@/contexts/AuthContext'
 import { ThemeProvider } from '@/providers/theme-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'

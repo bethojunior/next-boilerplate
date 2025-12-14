@@ -19,7 +19,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
-import { useAuth } from '@/providers/auth-provider'
+import { useAuth } from '@/hooks/use-auth'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -42,21 +42,21 @@ export default function LoginPage() {
     setIsLoading(true)
 
     try {
-      const success = await login(formData.email, formData.password)
-
-      if (success) {
-        toast({
-          title: 'Login realizado com sucesso',
-          description: 'Bem-vindo'
+      await login(formData.email, formData.password)
+        .then((response) => {
+          toast({
+            title: 'Login realizado com sucesso',
+            description: 'Bem-vindo'
+          })
+          router.push('/dashboard')
         })
-        router.push('/dashboard')
-      } else {
-        toast({
-          title: 'Erro de autenticação',
-          description: 'Email ou senha incorretos',
-          variant: 'destructive'
+        .catch(() => {
+          return toast({
+            title: 'Erro de autenticação',
+            description: 'Email ou senha incorretos',
+            variant: 'destructive'
+          })
         })
-      }
     } catch (error: any) {
       toast({
         title: 'Erro ao fazer login',
@@ -74,9 +74,7 @@ export default function LoginPage() {
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>
-          Entre com suas credenciais para acessar o sistema
-        </CardDescription>
+        <CardDescription>Entre com suas credenciais para acessar o sistema</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
@@ -122,14 +120,8 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={isLoading}
               >
-                {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
-                ) : (
-                  <Eye className="h-4 w-4" />
-                )}
-                <span className="sr-only">
-                  {showPassword ? 'Esconder senha' : 'Mostrar senha'}
-                </span>
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                <span className="sr-only">{showPassword ? 'Esconder senha' : 'Mostrar senha'}</span>
               </Button>
             </div>
           </div>

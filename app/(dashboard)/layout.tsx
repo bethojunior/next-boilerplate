@@ -5,21 +5,17 @@ import type React from 'react'
 import { Sidebar } from '@/components/sidebar'
 import { useToast } from '@/components/ui/use-toast'
 import { UserNav } from '@/components/user-nav'
-import { useAuth } from '@/providers/auth-provider'
+import { useAuth } from '@/hooks/use-auth'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-export default function DashboardLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const { toast } = useToast()
-  const { user, loading } = useAuth()
+  const { user, isLoading } = useAuth()
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!isLoading && !user) {
       toast({
         title: 'Acesso negado',
         description: 'Você precisa fazer login para acessar esta página',
@@ -27,15 +23,9 @@ export default function DashboardLayout({
       })
       router.push('/login')
     }
-  }, [user, loading, router, toast])
+  }, [user, isLoading, router, toast])
 
-  if (loading) {
-    return null
-  }
-
-  if (!user) {
-    return null
-  }
+  if (isLoading || !user) return null
 
   return (
     <div className="flex h-screen">
